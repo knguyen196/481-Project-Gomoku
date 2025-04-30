@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0d9b5;
+  }
+  
+  .board {
+    position: relative;
+    width: 560px;
+    height: 560px;
+    background-color: #deb887;
+    background-image: 
+      linear-gradient(to right, #8b4513 1px, transparent 1px),
+      linear-gradient(to bottom, #8b4513 1px, transparent 1px);
+    background-size: 40px 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+  
+  .intersection {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    background-color: transparent;
+    z-index: 2;
+  }
+  
+
+  .stone {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+  }
+  
+  .black {
+    background-color: black;
+  }
+  
+  .white {
+    background-color: white;
+    border: 1px solid black;
+  }
+  
