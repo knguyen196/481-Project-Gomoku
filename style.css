@@ -1,50 +1,58 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0d9b5;
-  }
-  
-  .board {
-    position: relative;
-    width: 560px;
-    height: 560px;
-    background-color: #deb887;
-    background-image: 
-      linear-gradient(to right, #8b4513 1px, transparent 1px),
-      linear-gradient(to bottom, #8b4513 1px, transparent 1px);
-    background-size: 40px 40px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  }
-  
-  .intersection {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    background-color: transparent;
-    z-index: 2;
-  }
-  
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: white;
+}
 
-  .stone {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-  }
-  
-  .black {
-    background-color: black;
-  }
-  
-  .white {
-    background-color: white;
-    border: 1px solid black;
-  }
-  
+h1 {
+  margin: 20px 0;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(15, 40px);
+  grid-template-rows: repeat(15, 40px);
+  gap: 1px;
+  background-color: #f2dca2;
+  border: 2px solid #333;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+}
+
+.stone {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  margin: auto;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+}
+
+.black {
+  background-color: black;
+}
+
+.white {
+  background-color: white;
+  border: 1px solid #999;
+}
+
+button {
+  margin: 20px;
+  padding: 6px 14px;
+}
