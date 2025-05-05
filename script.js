@@ -8,24 +8,34 @@ const boardDiv = document.getElementById("board");
 // Render the board and stones
 function renderBoard() {
   boardDiv.innerHTML = "";
+  const cellSize = boardDiv.offsetWidth / (SIZE - 1);
+
   for (let row = 0; row < SIZE; row++) {
     for (let col = 0; col < SIZE; col++) {
-      const cell = document.createElement("div");
-      cell.className = "cell";
-      cell.dataset.row = row;
-      cell.dataset.col = col;
-      cell.addEventListener("click", handleMove);
+      const x = col * cellSize;
+      const y = row * cellSize;
+
+      
+      const dot = document.createElement("div");
+      dot.className = "intersection";
+      dot.style.left = `${x}px`;
+      dot.style.top = `${y}px`;
+      dot.dataset.row = row;
+      dot.dataset.col = col;
+      dot.addEventListener("click", handleMove);
+      boardDiv.appendChild(dot);
 
       if (board[row][col]) {
         const stone = document.createElement("div");
         stone.className = `stone ${board[row][col]}`;
-        cell.appendChild(stone);
+        stone.style.left = `${x}px`;
+        stone.style.top = `${y}px`;
+        boardDiv.appendChild(stone);
       }
-
-      boardDiv.appendChild(cell);
     }
   }
 }
+
 
 // Handle a human move
 function handleMove(e) {
