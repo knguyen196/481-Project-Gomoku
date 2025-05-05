@@ -4,6 +4,16 @@ let currentPlayer = "black";
 let lastWinner = null;
 
 const boardDiv = document.getElementById("board");
+const turnIndicator = document.getElementById("turnIndicator");
+let player1Name = "Player 1"; // black
+let player2Name = "Player 2"; // red
+
+document.getElementById("startButton").addEventListener("click", () => {
+  player1Name = document.getElementById("player1Input").value || "Player 1";
+  player2Name = document.getElementById("player2Input").value || "Player 2";
+  updateTurnIndicator();
+  renderBoard();
+});
 
 // Render the board and stones
 function renderBoard() {
@@ -38,17 +48,20 @@ function handleMove(e) {
   renderBoard();
 
   if (checkWin(board, currentPlayer)) {
-    alert(`${currentPlayer} wins!`);
+    const winnerName = currentPlayer === "black" ? player1Name : player2Name;
+    const playAgain = confirm(`${winnerName} wins! Do you want to play again?`);
     lastWinner = currentPlayer;
-    disableBoard();
+    
+    if (playAgain) {
+      document.getElementById("reset").click();
+    } else {
+      disableBoard();
+    }
     return;
   }
 
-  if (currentPlayer === "black") {
-    currentPlayer = "white";
-  } else {
-    currentPlayer = "black";
-  }
+  currentPlayer = currentPlayer === "black" ? "white" : "black";
+  updateTurnIndicator();
 
   // AI plays if it's white's turn
   if (currentPlayer === "white") {
@@ -59,12 +72,21 @@ function handleMove(e) {
         renderBoard();
 
         if (checkWin(board, "white")) {
-          alert("White wins!");
-          lastWinner = "white";
-          disableBoard();
+          setTimeout(() => {
+            const winnerName = player2Name;
+            const playAgain = confirm(`${winnerName} wins! Do you want to play again?`);
+            lastWinner = "white";
+        
+            if (playAgain) {
+              document.getElementById("reset").click();
+            } else {
+              disableBoard();
+            }
+          }, 0);
         }
 
         currentPlayer = "black";
+        updateTurnIndicator();
       }
     }, 100);
   }
@@ -75,6 +97,19 @@ function disableBoard() {
   boardDiv.querySelectorAll(".cell").forEach(cell => {
     cell.removeEventListener("click", handleMove);
   });
+}
+
+// Update turn indicator
+function updateTurnIndicator() {
+  const name = currentPlayer === "black" ? player1Name : player2Name;
+  turnIndicator.textContent = `Current turn: ${name}`;
+  if (currentPlayer === "black") {
+    turnIndicator.classList.add("player1");
+    turnIndicator.classList.remove("player2");
+  } else {
+    turnIndicator.classList.add("player2");
+    turnIndicator.classList.remove("player1");
+  }
 }
 
 // Reset game and let loser go first
@@ -100,12 +135,20 @@ document.getElementById("reset").addEventListener("click", () => {
         renderBoard();
 
         if (checkWin(board, "white")) {
-          alert("White wins!");
-          lastWinner = "white";
-          disableBoard();
+          setTimeout(() => {
+            const playAgain = confirm(`${player2Name} wins! Do you want to play again?`);
+            lastWinner = "white";
+        
+            if (playAgain) {
+              document.getElementById("reset").click();
+            } else {
+              disableBoard();
+            }
+          }, 0);
         }
 
         currentPlayer = "black";
+        updateTurnIndicator();
       }
     }, 100);
   }

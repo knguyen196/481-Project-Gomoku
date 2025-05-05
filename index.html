@@ -4,9 +4,28 @@
   <meta charset="UTF-8">
   <title>Gomoku</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    #turnIndicator {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .player1 {
+      color: black;
+    }
+    .player2 {
+      color: red;
+    }
+  </style>
 </head>
 <body>
   <h1>Gomoku</h1>
+  
+  <label>Player 1 Name: <input type="text" id="player1Input" value="Player 1"></label>
+  <label>Player 2 Name: <input type="text" id="player2Input" value="Player 2"></label>
+  <button id="startButton">Start Game</button>
+
+   <p id="turnIndicator" class="player1">Current turn: Player 1</p>
   <div id="board"></div>
   <button id="reset">Reset Game</button>
   <script src="ai.js"></script>
