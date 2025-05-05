@@ -1,16 +1,15 @@
 // Defines heuristic pattern scores
 const PATTERN_SCORES = {
     'XXXXX': 100000,     // Win
-    '_XXXX_': 10000,
+    '_XXXX': 10000,
     'XXXX_': 5000,
     '_XXXX': 5000,
     'XXX_X': 3000,
     'XX_XX': 3000,
     '_XXX_': 1000,
-    '__XXX__': 800,
     '_XX_': 100,
     'X_X_X': 150,
-    '_X_X_': 50
+    '_X_X_': 150
   };
   
   const SCORES = {
