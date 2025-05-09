@@ -1,6 +1,13 @@
 const SIZE = 15;
 let board = Array.from({ length: SIZE }, () => Array(SIZE).fill(null));
-let currentPlayer = "black";
+
+let currentPlayer;
+if (Math.random() < 0.5) {
+  currentPlayer = "black";
+} else {
+  currentPlayer = "white";
+}
+
 let lastWinner = null;
 
 const boardDiv = document.getElementById("board");
@@ -104,7 +111,7 @@ function handleMove(e) {
 
 // Disable further moves
 function disableBoard() {
-  boardDiv.querySelectorAll(".cell").forEach(cell => {
+  boardDiv.querySelectorAll(".intersection").forEach(cell => {
     cell.removeEventListener("click", handleMove);
   });
 }
@@ -123,7 +130,7 @@ function updateTurnIndicator() {
 }
 
 // Reset game and let loser go first
-document.getElementById("reset").addEventListener("click", () => {
+function resetGame() {
   board = Array.from({ length: SIZE }, () => Array(SIZE).fill(null));
 
   if (lastWinner === "black") {
@@ -146,11 +153,10 @@ document.getElementById("reset").addEventListener("click", () => {
 
         if (checkWin(board, "white")) {
           setTimeout(() => {
-            const playAgain = confirm(`${player2Name} wins! Do you want to play again?`);
+            const playAgain = confirm(`White wins! Do you want to play again?`);
             lastWinner = "white";
-        
             if (playAgain) {
-              document.getElementById("reset").click();
+              resetGame(); //
             } else {
               disableBoard();
             }
@@ -158,10 +164,31 @@ document.getElementById("reset").addEventListener("click", () => {
         }
 
         currentPlayer = "black";
-        updateTurnIndicator();
       }
-    }, 100);
+    }, 0);
   }
-});
+}
 
 renderBoard();
+
+// If AI starts as white on first load, let it move
+if (currentPlayer === "white") {
+  setTimeout(() => {
+    const move = getBestMove(board, 2);
+    if (move) {
+      board[move.row][move.col] = "white";
+      renderBoard();
+
+      if (checkWin(board, "white")) {
+        alert("White wins!");
+        lastWinner = "white";
+        disableBoard();
+      }
+
+      currentPlayer = "black";
+    }
+  }, 100);
+}
+
+document.getElementById("reset").addEventListener("click", resetGame);
+resetGame();
