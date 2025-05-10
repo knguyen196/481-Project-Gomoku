@@ -57,4 +57,4 @@ checkwin.js - Function to check if a player has won
   - Checks all four directions from every cell
   - Detects if there are **5 consecutive stones** of the same player
   - Used by both the human and AI logic to determine if the game is over.
---  
+
